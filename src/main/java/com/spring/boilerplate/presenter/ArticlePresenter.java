@@ -5,7 +5,9 @@ import com.spring.boilerplate.service.ArticleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/articles")
@@ -15,27 +17,42 @@ public class ArticlePresenter {
     private ArticleServiceImpl articleService;
 
     @GetMapping
-    public List<Article> getAllArticles() {
-        return articleService.findAllArticles();
+    public Map<String, Object> getAllArticles() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("data", articleService.findAllArticles());
+        return response;
     }
 
     @GetMapping("/{id}")
-    public Article getArticleById(Long id) {
-        return articleService.findArticleById(id);
+    public Map<String, Object> getArticleById(Long id) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("data", articleService.findArticleById(id));
+        return response;
     }
 
     @PostMapping
-    public Article createArticle(@RequestBody Article article) {
-        return articleService.createArticle(article);
+    public Map<String, Object> createArticle(@RequestBody Article article) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("data", articleService.createArticle(article));
+        return response;
     }
 
     @PutMapping("/{id}")
-    public Article updateArticle(@PathVariable Long id, @RequestBody Article article) {
-        return articleService.updateArticle(id, article);
+    public Map<String, Object> updateArticle(@PathVariable Long id, @RequestBody Article article) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("data", articleService.updateArticle(id, article));
+        return response;
     }
 
     @DeleteMapping("/{id}")
-    public void deleteArticle(@PathVariable Long id) {
+    public Map<String, Object> deleteArticle(@PathVariable Long id) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
         articleService.deleteArticle(id);
+        return response;
     }
 }
