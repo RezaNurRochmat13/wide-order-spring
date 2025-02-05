@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: wide-postgres
+    environment:
+      POSTGRES_USER: wide
+      POSTGRES_PASSWORD: wide
+      POSTGRES_DB: wide-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
