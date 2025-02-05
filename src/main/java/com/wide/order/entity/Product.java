@@ -28,4 +28,8 @@ public class Product extends Auditing implements Serializable {
 
     @Column(name = "price")
     private Double price;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

@@ -26,4 +26,12 @@ public class Order extends Auditing implements Serializable {
 
     @Column(name = "order_status")
     private String orderStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

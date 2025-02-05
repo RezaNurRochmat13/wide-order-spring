@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -14,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Customer extends Auditing implements Serializable {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -25,4 +26,8 @@ public class Customer extends Auditing implements Serializable {
 
     @Column(name = "postal_code")
     private String postalCode;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders;
+
 }

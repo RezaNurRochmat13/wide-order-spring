@@ -8,11 +8,11 @@
 		<version>3.4.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.spring</groupId>
-	<artifactId>boilerplate</artifactId>
+	<groupId>com.wide.order</groupId>
+	<artifactId>wide</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>boilerplate</name>
-	<description>Simple boilerplate project for Spring Boot</description>
+	<name>wider</name>
+	<description>Order System example using Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -40,8 +40,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
