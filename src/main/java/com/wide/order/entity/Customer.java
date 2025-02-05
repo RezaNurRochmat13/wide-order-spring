@@ -1,5 +1,6 @@
 package com.wide.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class Customer extends Auditing implements Serializable {
     private String postalCode;
 
     @OneToMany(mappedBy = "customer")
+    @JsonManagedReference
     private List<Order> orders;
 
 }

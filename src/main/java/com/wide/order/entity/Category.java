@@ -1,5 +1,6 @@
 package com.wide.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class Category extends Auditing implements Serializable {
     private String description;
 
     @OneToMany(mappedBy = "category")
+    @JsonManagedReference
     private List<Product> products;
 
 }
