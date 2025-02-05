@@ -1,7 +1,7 @@
 package com.wide.order.presenter;
 
-import com.wide.order.entity.dto.CreateOrderDto;
-import com.wide.order.entity.dto.UpdateOrderDto;
+import com.wide.order.entity.dto.order.CreateOrderDto;
+import com.wide.order.entity.dto.order.UpdateOrderDto;
 import com.wide.order.service.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

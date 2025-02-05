@@ -1,8 +1,8 @@
 package com.wide.order.service;
 
 import com.wide.order.entity.Order;
-import com.wide.order.entity.dto.CreateOrderDto;
-import com.wide.order.entity.dto.UpdateOrderDto;
+import com.wide.order.entity.dto.order.CreateOrderDto;
+import com.wide.order.entity.dto.order.UpdateOrderDto;
 
 import java.util.List;
 

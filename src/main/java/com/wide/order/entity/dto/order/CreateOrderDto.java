@@ -1,4 +1,4 @@
-package com.wide.order.entity.dto;
+package com.wide.order.entity.dto.order;
 
 import lombok.Getter;
 import lombok.Setter;
