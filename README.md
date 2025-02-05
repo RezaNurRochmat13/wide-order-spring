@@ -1,12 +1,12 @@
-# Spring Boilerplate Template
-Spring boilerplate template
+# Wide Inventory System
+Wide Inventory System Asessment
 
 ## Requirements
 ```
 - Java 17
 - Maven
 - IntelliJ IDEA
-- Postman
+- Postman / Insomnia REST Client
 - Docker
 ```
 
@@ -28,16 +28,17 @@ Spring boilerplate template
 ```
 - Spring Boot
 - Spring Data JPA
-- H2 Database
+- Postgres Database
 - Lombok
 ```
 
 ## Architecture
 ```
-- Controller
-- Service
-- Repository
-- Entity
+- Presenter => package for presentation layer
+- Service => package for business logic
+- Repository => package for data access
+- Entity => package for database entities
+- Dto => package for data transfer objects
 ```
 
 ## Contributing
