@@ -1,4 +1,4 @@
-package com.spring.boilerplate;
+package com.wide.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

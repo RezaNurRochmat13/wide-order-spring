@@ -1,12 +1,11 @@
-package com.spring.boilerplate.presenter;
+package com.wide.order.presenter;
 
-import com.spring.boilerplate.entity.Article;
-import com.spring.boilerplate.service.ArticleServiceImpl;
+import com.wide.order.entity.Customer;
+import com.wide.order.service.ArticleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -33,7 +32,7 @@ public class ArticlePresenter {
     }
 
     @PostMapping
-    public Map<String, Object> createArticle(@RequestBody Article article) {
+    public Map<String, Object> createArticle(@RequestBody Customer article) {
         Map<String, Object> response = new HashMap<>();
         response.put("status", "success");
         response.put("data", articleService.createArticle(article));
@@ -41,7 +40,7 @@ public class ArticlePresenter {
     }
 
     @PutMapping("/{id}")
-    public Map<String, Object> updateArticle(@PathVariable Long id, @RequestBody Article article) {
+    public Map<String, Object> updateArticle(@PathVariable Long id, @RequestBody Customer article) {
         Map<String, Object> response = new HashMap<>();
         response.put("status", "success");
         response.put("data", articleService.updateArticle(id, article));

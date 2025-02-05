@@ -1,8 +1,8 @@
-package com.spring.boilerplate.service;
+package com.wide.order.service;
 
-import com.spring.boilerplate.entity.Article;
-import com.spring.boilerplate.exception.ResourceNotFound;
-import com.spring.boilerplate.repository.ArticleRepository;
+import com.wide.order.entity.Customer;
+import com.wide.order.exception.ResourceNotFound;
+import com.wide.order.repository.ArticleRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,24 +17,24 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleRepository articleRepository;
 
     @Override
-    public List<Article> findAllArticles() {
+    public List<Customer> findAllArticles() {
         return articleRepository.findAll();
     }
 
     @Override
-    public Article findArticleById(Long id) {
+    public Customer findArticleById(Long id) {
         return articleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFound("Article not found with id " + id));
     }
 
     @Override
-    public Article createArticle(Article article) {
+    public Customer createArticle(Customer article) {
         return articleRepository.save(article);
     }
 
     @Override
-    public Article updateArticle(Long id, Article article) {
-        Article existingArticle = articleRepository.findById(id)
+    public Customer updateArticle(Long id, Customer article) {
+        Customer existingArticle = articleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFound("Article not found with id " + id));
 
         existingArticle.setTitle(article.getTitle());
@@ -47,7 +47,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void deleteArticle(Long id) {
-        Article existingArticle = articleRepository.findById(id)
+        Customer existingArticle = articleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFound("Article not found with id " + id));
 
         existingArticle.setDeletedAt(LocalDateTime.now());
