@@ -1,10 +1,15 @@
 package com.wide.order.service;
 
+import com.wide.order.configuration.ModelMapperConfig;
 import com.wide.order.entity.Customer;
 import com.wide.order.entity.Order;
 import com.wide.order.entity.Product;
+import com.wide.order.entity.dto.customer.ListCustomerDto;
 import com.wide.order.entity.dto.order.CreateOrderDto;
+import com.wide.order.entity.dto.order.ListOrderDto;
+import com.wide.order.entity.dto.order.SingleOrderDto;
 import com.wide.order.entity.dto.order.UpdateOrderDto;
+import com.wide.order.entity.dto.product.ListProductDto;
 import com.wide.order.exception.ResourceNotFound;
 import com.wide.order.repository.CustomerRepository;
 import com.wide.order.repository.OrderRepository;
@@ -14,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,15 +34,21 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private ModelMapperConfig modelMapper;
+
     @Override
-    public List<Order> findAllActiveOrders() {
-        return orderRepository.findAllActiveOrders();
+    public List<ListOrderDto> findAllActiveOrders() {
+        List<ListOrderDto> listOrderDtos = mapperListOrderEntityToDto(orderRepository.findAllActiveOrders());
+        return listOrderDtos;
     }
 
     @Override
-    public Order findOrderById(Long id) {
-        return orderRepository.findById(id)
+    public SingleOrderDto findOrderById(Long id) {
+        Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFound("Order not found for this id :" + id));
+        SingleOrderDto singleOrderDto = mapperSingleOrderEntityToDto(order);
+        return singleOrderDto;
     }
 
     @Override
@@ -86,5 +98,57 @@ public class OrderServiceImpl implements OrderService {
         order.setDeletedAt(LocalDateTime.now());
 
         orderRepository.save(order);
+    }
+
+    private List<ListOrderDto> mapperListOrderEntityToDto(List<Order> orders) {
+        List<ListOrderDto> listOrderDtos = new ArrayList<>();
+
+        for (Order order : orders) {
+            Product product = productRepository
+                    .findById(order.getProduct().getId())
+                    .orElseThrow(() -> new ResourceNotFound("Product not found for this id :" + order.getProduct().getId()));
+            Customer customer = customerRepository
+                    .findById(order.getCustomer().getId())
+                    .orElseThrow(() -> new ResourceNotFound("Customer not found for this id :" + order.getCustomer().getId()));
+            ListOrderDto listOrderDto = modelMapper
+                    .modelMapper()
+                    .map(order, ListOrderDto.class);
+            ListCustomerDto listCustomerDto = modelMapper
+                    .modelMapper()
+                    .map(customer, ListCustomerDto.class);
+            ListProductDto listProductDto = modelMapper
+                    .modelMapper()
+                    .map(product, ListProductDto.class);
+
+            listOrderDto.setCustomer(listCustomerDto);
+            listOrderDto.setProduct(listProductDto);
+
+            listOrderDtos.add(listOrderDto);
+        }
+        return listOrderDtos;
+    }
+
+    private SingleOrderDto mapperSingleOrderEntityToDto(Order order) {
+        Product product = productRepository
+                .findById(order.getProduct().getId())
+                .orElseThrow(() -> new ResourceNotFound("Product not found for this id :" + order.getProduct().getId()));
+        Customer customer = customerRepository
+                .findById(order.getCustomer().getId())
+                .orElseThrow(() -> new ResourceNotFound("Customer not found for this id :" + order.getCustomer().getId()));
+        SingleOrderDto singleOrderDto = modelMapper
+                .modelMapper()
+                .map(order, SingleOrderDto.class);
+        ListCustomerDto listCustomerDto = modelMapper
+                .modelMapper()
+                .map(customer, ListCustomerDto.class);
+        ListProductDto listProductDto = modelMapper
+                .modelMapper()
+                .map(product, ListProductDto.class);
+
+
+        singleOrderDto.setCustomer(listCustomerDto);
+        singleOrderDto.setProduct(listProductDto);
+
+        return singleOrderDto;
     }
 }
