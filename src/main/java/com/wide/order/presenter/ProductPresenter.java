@@ -1,10 +1,8 @@
 package com.wide.order.presenter;
 
-import com.wide.order.entity.Product;
 import com.wide.order.entity.dto.product.CreateProductDto;
 import com.wide.order.entity.dto.product.UpdateProductDto;
 import com.wide.order.service.ProductServiceImpl;
-import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

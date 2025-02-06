@@ -2,13 +2,11 @@ package com.wide.order.entity.dto.product;
 
 import com.wide.order.entity.Auditing;
 import com.wide.order.entity.dto.category.SingleCategoryDto;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 public class ListProductDto extends Auditing implements Serializable {
     private Long id;
     private String name;

@@ -2,14 +2,12 @@ package com.wide.order.entity.dto.order;
 
 import com.wide.order.entity.dto.customer.SingleCustomerDto;
 import com.wide.order.entity.dto.product.SingleProductDto;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 public class ListOrderDto implements Serializable {
     private Long id;
     private SingleCustomerDto customer;

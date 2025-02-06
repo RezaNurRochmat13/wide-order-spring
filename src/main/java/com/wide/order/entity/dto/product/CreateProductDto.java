@@ -1,12 +1,10 @@
 package com.wide.order.entity.dto.product;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 public class CreateProductDto implements Serializable {
     private String name;
     private String description;

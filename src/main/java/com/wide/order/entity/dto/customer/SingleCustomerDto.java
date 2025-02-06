@@ -1,13 +1,11 @@
 package com.wide.order.entity.dto.customer;
 
 import com.wide.order.entity.Auditing;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 public class SingleCustomerDto extends Auditing implements Serializable {
     private Long id;
     private String name;
