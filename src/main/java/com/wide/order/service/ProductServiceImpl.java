@@ -13,6 +13,10 @@ import com.wide.order.repository.CategoryRepository;
 import com.wide.order.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -32,8 +36,11 @@ public class ProductServiceImpl implements ProductService {
     private ModelMapperConfig modelMapper;
 
     @Override
-    public List<ListProductDto> findAllActiveProducts() {
-        List<ListProductDto> listProductDtos = mapperListProductEntityToDto(productRepository.findAllActiveProducts());
+    public Page<ListProductDto> findAllActiveProducts(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> products = productRepository.findActiveProducts(pageable);
+        Page<ListProductDto> listProductDtos = mapperListProductEntityToDto(products, pageable);
+
         return listProductDtos;
     }
 
@@ -82,10 +89,10 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
     }
 
-    private List<ListProductDto> mapperListProductEntityToDto(List<Product> products) {
+    private Page<ListProductDto> mapperListProductEntityToDto(Page<Product> products, Pageable pageable) {
         List<ListProductDto> listProductDtos = new ArrayList<>();
 
-        for (Product product : products) {
+        for (Product product : products.getContent()) {
             Category category = categoryRepository
                     .findById(product.getCategory().getId())
                     .orElseThrow(() -> new ResourceNotFound("Category not found for this id :" + product.getCategory().getId()));
@@ -100,7 +107,7 @@ public class ProductServiceImpl implements ProductService {
             listProductDtos.add(listProductDto);
         }
 
-        return listProductDtos;
+        return new PageImpl<>(listProductDtos, pageable, listProductDtos.size());
     }
 
     private SingleProductDto mapperSingleProductEntityToDto(Product product) {

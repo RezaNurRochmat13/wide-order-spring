@@ -1,9 +1,11 @@
 package com.wide.order.presenter;
 
 import com.wide.order.entity.dto.product.CreateProductDto;
+import com.wide.order.entity.dto.product.ListProductDto;
 import com.wide.order.entity.dto.product.UpdateProductDto;
 import com.wide.order.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +20,17 @@ public class ProductPresenter {
 
     @GetMapping("products")
     @ResponseStatus(value = HttpStatus.OK)
-    public Map<String, Object> findAllProducts() {
+    public Map<String, Object> findAllProducts(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "10") Integer size
+    ) {
         Map<String, Object> response = new HashMap<>();
+        Page<ListProductDto> productDtoPage = productService.findAllActiveProducts(page, size);
         response.put("status", "success");
-        response.put("data", productService.findAllActiveProducts());
+        response.put("data", productDtoPage.getContent());
+        response.put("total", productDtoPage.getTotalElements());
+        response.put("page", productDtoPage.getTotalPages());
+
         return response;
     }
 
