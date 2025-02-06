@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class ListProductDto extends Auditing implements Serializable {
+public class SingleProductDto extends Auditing implements Serializable {
     private Long id;
     private String name;
     private String description;

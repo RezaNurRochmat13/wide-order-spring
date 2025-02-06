@@ -5,11 +5,13 @@ import com.wide.order.entity.Customer;
 import com.wide.order.entity.Order;
 import com.wide.order.entity.Product;
 import com.wide.order.entity.dto.customer.ListCustomerDto;
+import com.wide.order.entity.dto.customer.SingleCustomerDto;
 import com.wide.order.entity.dto.order.CreateOrderDto;
 import com.wide.order.entity.dto.order.ListOrderDto;
 import com.wide.order.entity.dto.order.SingleOrderDto;
 import com.wide.order.entity.dto.order.UpdateOrderDto;
 import com.wide.order.entity.dto.product.ListProductDto;
+import com.wide.order.entity.dto.product.SingleProductDto;
 import com.wide.order.exception.ResourceNotFound;
 import com.wide.order.repository.CustomerRepository;
 import com.wide.order.repository.OrderRepository;
@@ -113,15 +115,15 @@ public class OrderServiceImpl implements OrderService {
             ListOrderDto listOrderDto = modelMapper
                     .modelMapper()
                     .map(order, ListOrderDto.class);
-            ListCustomerDto listCustomerDto = modelMapper
+            SingleCustomerDto singleCustomerDto = modelMapper
                     .modelMapper()
-                    .map(customer, ListCustomerDto.class);
-            ListProductDto listProductDto = modelMapper
+                    .map(customer, SingleCustomerDto.class);
+            SingleProductDto singleProductDto = modelMapper
                     .modelMapper()
-                    .map(product, ListProductDto.class);
+                    .map(product, SingleProductDto.class);
 
-            listOrderDto.setCustomer(listCustomerDto);
-            listOrderDto.setProduct(listProductDto);
+            listOrderDto.setCustomer(singleCustomerDto);
+            listOrderDto.setProduct(singleProductDto);
 
             listOrderDtos.add(listOrderDto);
         }
